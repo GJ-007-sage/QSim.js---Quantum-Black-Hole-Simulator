@@ -114,3 +114,10 @@ window.onload = function () {
     initializeWavefunction(50, 10, 5);  // Start with a Gaussian wavepacket
     drawWavefunction();
 };
+window.onload = function () {
+    if (typeof psi === "undefined" || psi.length === 0) {
+        console.error("Wavefunction not initialized! Check schrodinger.js.");
+    } else {
+        drawWavefunction();
+    }
+};

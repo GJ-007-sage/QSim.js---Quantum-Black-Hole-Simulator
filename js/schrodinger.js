@@ -1,14 +1,21 @@
 // schrodinger.js - Crank-Nicolson Schrödinger Solver
 
 // Constants
-const N = 200;  // Number of grid points
+
 const dx = 0.01; // Spatial step size
 const dt = 0.002; // Time step
 const hbar = 1;  // Reduced Planck's constant (normalized)
 const m = 1;  // Particle mass (normalized)
 
+// Number of grid points
+const N = 200;
+
+// Create psi array for wavefunction (Real, Imaginary parts)
+let psi = new Array(N).fill(0).map(() => [0, 0]);
+
+
 // Arrays for wavefunction and potential
-let psi = new Array(N).fill(0).map(() => [0, 0]);  // [Real, Imaginary]
+
 let V = new Array(N).fill(0);  // Potential array
 
 // Initialize Gaussian Wave Packet
@@ -119,3 +126,5 @@ document.getElementById("potential").addEventListener("change", (event) => {
         setDoubleSlit();
     }
 });
+initializeWavefunction(50, 10, 5);
+console.log("Initialized psi:", psi);
