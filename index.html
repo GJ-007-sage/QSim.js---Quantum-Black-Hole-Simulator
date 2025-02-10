@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quantum Mechanics Simulator</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="/quantum-simulator/styles.css">
-
 </head>
 <body>
     <h1>Quantum Mechanics Wavefunction Simulator</h1>
@@ -17,21 +15,22 @@
             <option value="well">Infinite Square Well</option>
             <option value="barrier">Potential Barrier (Tunneling)</option>
             <option value="harmonic">Harmonic Oscillator</option>
+            <option value="double-slit">Double-Slit Experiment</option>
         </select>
-        
-        <button id="start" type="button">Start Simulation</button>
 
+        <label for="speed">Speed:</label>
+        <input type="range" id="speed" min="1" max="100" value="50">
+
+        <button id="start">Start</button>
+        <button id="pause">Pause</button>
+        <button id="reset">Reset</button>
     </div>
 
     <canvas id="waveCanvas"></canvas>
+    <div id="threejs-container"></div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>S
     <script src="js/schrodinger.js"></script>
     <script src="js/visualization.js"></script>
-    <script src="/quantum-simulator/js/schrodinger.js"></script>
-    <script src="/quantum-simulator/js/visualization.js"></script>
-
-
-   
-
 </body>
 </html>
