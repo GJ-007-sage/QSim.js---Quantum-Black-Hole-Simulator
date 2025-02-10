@@ -15,5 +15,6 @@ function drawWavefunction() {
 }
 
 setInterval(() => {
-    drawWavefunction();
+    crankNicolsonStep();  // Update wavefunction
+    drawWavefunction();   // Visualize
 }, 50);
