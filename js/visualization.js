@@ -1,5 +1,6 @@
-const canvas = document.getElementById("waveCanvas");
-const ctx = canvas.getContext("2d");
+var canvas = document.getElementById("waveCanvas");
+var ctx = canvas.getContext("2d");
+
 const startButton = document.getElementById("start");
 const pauseButton = document.getElementById("pause");
 const resetButton = document.getElementById("reset");
@@ -108,3 +109,8 @@ function drawWavefunction() {
     ctx.lineWidth = 2;
     ctx.stroke();
 }
+// Initialize wavefunction on page load
+window.onload = function () {
+    initializeWavefunction(50, 10, 5);  // Start with a Gaussian wavepacket
+    drawWavefunction();
+};
