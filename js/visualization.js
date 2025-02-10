@@ -57,3 +57,54 @@ speedSlider.addEventListener("input", (e) => {
         startAnimation();
     }
 });
+
+
+let mouseDown = false;
+
+// Function to set a wavepacket at the clicked position
+canvas.addEventListener("mousedown", (event) => {
+    let rect = canvas.getBoundingClientRect();
+    let x = event.clientX - rect.left;
+    let gridIndex = Math.floor((x / canvas.width) * psi.length);
+
+    // Create a Gaussian wave packet at the clicked position
+    let sigma = 5;  // Width of wavepacket
+    let k = 5;  // Momentum
+    for (let i = 0; i < psi.length; i++) {
+        let xPos = i - gridIndex;
+        let gaussian = Math.exp(-Math.pow(xPos, 2) / (2 * sigma * sigma));
+        psi[i] = [gaussian * Math.cos(k * xPos), gaussian * Math.sin(k * xPos)];
+    }
+
+    drawWavefunction();
+});
+
+// Function to allow dragging and modifying the wavefunction
+canvas.addEventListener("mousemove", (event) => {
+    if (mouseDown) {
+        let rect = canvas.getBoundingClientRect();
+        let x = event.clientX - rect.left;
+        let gridIndex = Math.floor((x / canvas.width) * psi.length);
+
+        psi[gridIndex] = [0.5, 0];  // Set amplitude interactively
+        drawWavefunction();
+    }
+});
+
+canvas.addEventListener("mousedown", () => { mouseDown = true; });
+canvas.addEventListener("mouseup", () => { mouseDown = false; });
+
+function drawWavefunction() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+    for (let i = 0; i < psi.length; i++) {
+        let x = i * (canvas.width / psi.length);
+        let probabilityDensity = psi[i][0] ** 2 + psi[i][1] ** 2;
+        let intensity = Math.min(255, Math.floor(probabilityDensity * 5000));
+        ctx.fillStyle = `rgb(${intensity}, ${intensity}, 255)`;
+        ctx.fillRect(x, canvas.height / 2, 2, -probabilityDensity * 300);
+    }
+    ctx.strokeStyle = "cyan";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+}

@@ -94,3 +94,28 @@ function solveTridiagonal(A, B, psi) {
 
     return psi_new;
 }
+// Function to set up the double-slit barrier
+function setDoubleSlit() {
+    V.fill(0);  // Reset potential
+
+    let barrierCenter = Math.floor(N / 2);
+    let slitWidth = 5;
+    let barrierHeight = 1e6;
+
+    // Create the barrier with two slits
+    for (let i = 0; i < N; i++) {
+        if (i >= barrierCenter - 20 && i <= barrierCenter + 20) {
+            // Leave two slits open
+            if (i < barrierCenter - slitWidth || i > barrierCenter + slitWidth) {
+                V[i] = barrierHeight;
+            }
+        }
+    }
+}
+
+// Assign function to UI selection
+document.getElementById("potential").addEventListener("change", (event) => {
+    if (event.target.value === "double-slit") {
+        setDoubleSlit();
+    }
+});
